@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="icon" href="C:\Users\Admin\Desktop\WebDev\gudetama.png"/>
+        <style>
+        
+        #spaceship{
+            
+            width: 178px;
+            height: 100px;
+            position: absolute;
+            
+            
+        }
+        #asteroids{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        </style>
+
+
+    </head>
+    <body style="background-color:#784212">
+        <img id="gamingArea"src = "C:\Users\Admin\Desktop\WebDev\bg.jpg" style="width:1000px;height :950px;position: relative ">
+            <img id="spaceship" src="C:\Users\Admin\Desktop\WebDev\gudetama.png" style="top:850px;left:400px " />
+
+            
+            <img id = "asteroids" src="C:\Users\Admin\Desktop\WebDev\chipsticks.png"style="top:0px;left:0px"/>
+            <div id = "birthChop"></div>
+        </img>
+
+<script>
+var xPosition = 400;
+var yPosition = 850;
+var yAsteroidPosition = 0;
+var xAsteroidPosition;
+var lives = 3;
+function move(e){
+    console.log(e.keyCode)
+    var elem = document.getElementById("spaceship");
+    
+        if(yPosition<885&xPosition<885&yPosition>=0&xPosition>=0){
+            switch(e.keyCode){
+                case 37:
+                    xPosition-=5;
+                    break;
+                case 39:
+                    xPosition+=5;
+                    break;
+                case 40:
+                    yPosition+=5;
+                    break;
+                case 38:
+                    yPosition-=5;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else{
+            lives--;
+            window.alert("You fell off the table! Boooooooooo! You only have: "+lives+" <3 left")
+            if(lives==0){
+                window.alert("GAME OVER ")
+            }
+            xPosition = 400;
+            yPosition = 850;
+            
+        }
+    
+    
+        elem.style.top = yPosition + "px";
+        elem.style.left = xPosition + "px"; 
+    
+    }
+function asteroidFall(){
+    var elem2 = document.getElementById("asteroids");
+    xAsteroidPosition = Math.floor(Math.random()*885);
+    yAsteroidPosition +=20;
+    elem2.style.top = yAsteroidPosition + "px";
+    elem2.style.left = xAsteroidPosition + "px";
+}
+
+function chopstickCreate(){
+    console.log('chopstick');
+    var chopstick = document.createElement("img");
+    chopstick.setAttribute("src","C:\\Users\\Admin\\Desktop\\WebDev\\chipsticks.png");
+    chopstick.setAttribute("id","asteroids");
+    chopstick.setAttribute("style","top:0px;left:0px");
+    document.getElementById("birthChop").appendChild(chopstick);
+}
+    
+document.addEventListener("keydown",move, true);
+
+window.setInterval(asteroidFall,50);
+window.setInterval(chopstickCreate, 200)
+</script>
+
+    </body>
+</html>
